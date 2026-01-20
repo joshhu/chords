@@ -1,0 +1,42 @@
+[project]
+name = "chords"
+version = "0.1.0"
+description = "自動為 MP3 歌曲添加多聲部和聲（三度 + 五度）的 CLI 工具"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    # 音訊 I/O
+    "pedalboard>=0.9.0",      # Spotify 音效庫，支援 MP3
+    "soundfile>=0.12.0",      # WAV I/O
+
+    # 音訊分析
+    "librosa>=0.10.0",        # 音樂分析、調性偵測
+
+    # 音高偵測
+    "crepe>=0.0.13",          # 深度學習音高追蹤
+    "tensorflow>=2.10.0",     # CREPE 依賴
+
+    # 音源分離
+    "demucs>=4.0.0",          # Meta 音源分離
+    "torch>=2.0.0",           # Demucs 依賴（CUDA 版本）
+
+    # 變調處理
+    "pyrubberband>=0.3.0",    # 高品質變調
+
+    # CLI
+    "click>=8.0.0",           # CLI 框架
+    "rich>=13.0.0",           # 美化輸出
+
+    # 其他
+    "numpy>=1.24.0",          # 數值運算
+]
+
+[project.scripts]
+chords = "chords.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/chords"]
