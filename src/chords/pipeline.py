@@ -35,6 +35,7 @@ def process_audio(
     harmony_types: List[str] = ["third", "fifth"],
     harmony_volume: float = 0.6,
     add_reverb: bool = True,
+    voice_type: Optional[str] = None,
     skip_separation: bool = False
 ) -> ProcessingResult:
     """
@@ -46,6 +47,7 @@ def process_audio(
         harmony_types: 要生成的和聲類型列表
         harmony_volume: 和聲音量（0.0 - 1.0）
         add_reverb: 是否為和聲加入殘響效果
+        voice_type: 和聲聲音類型（"male" 降八度、"female" 升八度、None 不調整）
         skip_separation: 是否跳過音源分離（用於測試）
 
     回傳:
@@ -89,7 +91,8 @@ def process_audio(
         vocals,
         sample_rate,
         key_info=key_info,
-        harmony_types=harmony_types
+        harmony_types=harmony_types,
+        voice_type=voice_type
     )
     console.print()
 

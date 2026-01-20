@@ -46,6 +46,18 @@ def parse_harmony_types(harmony_str: str) -> List[str]:
     help="不加入殘響效果"
 )
 @click.option(
+    "-m", "--male",
+    "voice_type",
+    flag_value="male",
+    help="生成男聲和聲（降八度，適合搭配女聲原曲）"
+)
+@click.option(
+    "-f", "--female",
+    "voice_type",
+    flag_value="female",
+    help="生成女聲和聲（升八度，適合搭配男聲原曲）"
+)
+@click.option(
     "--skip-separation",
     is_flag=True,
     hidden=True,
@@ -63,6 +75,7 @@ def main(
     harmony: str,
     harmony_volume: float,
     no_reverb: bool,
+    voice_type: Optional[str],
     skip_separation: bool,
     info: bool
 ):
@@ -126,6 +139,7 @@ def main(
             harmony_types=harmony_types,
             harmony_volume=harmony_volume,
             add_reverb=not no_reverb,
+            voice_type=voice_type,
             skip_separation=skip_separation
         )
 

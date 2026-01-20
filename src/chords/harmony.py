@@ -141,7 +141,8 @@ def generate_multi_harmony(
     vocals: np.ndarray,
     sample_rate: int,
     key_info: Optional[KeyInfo] = None,
-    harmony_types: List[str] = ["third", "fifth"]
+    harmony_types: List[str] = ["third", "fifth"],
+    voice_type: Optional[str] = None
 ) -> List[HarmonyTrack]:
     """
     生成多聲部和聲
@@ -151,10 +152,20 @@ def generate_multi_harmony(
         sample_rate: 取樣率
         key_info: 調性資訊（可選，用於智慧判斷三度類型）
         harmony_types: 要生成的和聲類型列表
+        voice_type: 和聲聲音類型（"male" 降八度、"female" 升八度、None 不調整）
 
     回傳:
         List[HarmonyTrack]: 和聲音軌列表
     """
+    # 根據 voice_type 決定八度偏移
+    octave_shift = 0
+    if voice_type == "male":
+        octave_shift = -12  # 降八度
+        print("使用男聲模式（降八度）")
+    elif voice_type == "female":
+        octave_shift = 12   # 升八度
+        print("使用女聲模式（升八度）")
+
     harmonies = []
 
     for harmony_type in harmony_types:
@@ -177,6 +188,9 @@ def generate_multi_harmony(
         else:
             print(f"未知的和聲類型: {harmony_type}，跳過")
             continue
+
+        # 加上八度偏移
+        semitones += octave_shift
 
         harmony = generate_harmony(vocals, sample_rate, semitones, harmony_type)
         harmonies.append(harmony)

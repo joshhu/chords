@@ -9,6 +9,7 @@
 - 使用 Librosa 自動分析調性（大調/小調）
 - 根據調性智慧選擇和聲音程（大三度/小三度）
 - 支援多種和聲類型：三度、五度、低三度、低五度
+- 支援男聲/女聲模式：可生成降八度（男聲）或升八度（女聲）和聲
 - 使用 Pedalboard 施加效果（壓縮、殘響）讓和聲更自然
 - 支援 GPU 加速（CUDA）
 
@@ -92,6 +93,12 @@ uv run chords song.mp3 --harmony-volume 0.4
 
 # 不加殘響效果
 uv run chords song.mp3 --no-reverb
+
+# 男聲和聲（降八度，適合女聲原曲）
+uv run chords song.mp3 -m
+
+# 女聲和聲（升八度，適合男聲原曲）
+uv run chords song.mp3 -f
 
 # 顯示系統資訊（GPU 狀態等）
 uv run chords --info
